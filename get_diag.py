@@ -16,6 +16,14 @@ TASKS = {
         "command": "log show --info --debug --last 1m",
         "filename": "log_show"
     },
+    "airport": {
+        "command": "airport -Is",
+        "filename": "airport"
+    },
+    "wdutil": {
+        "command": "wdutil info",
+        "filename": "wdutil"
+    },
 }
 
 
