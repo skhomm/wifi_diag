@@ -1,4 +1,5 @@
 import subprocess
+import re
 from datetime import datetime
 
 FOLDER_NAME = "wifi_diag_logs"
@@ -6,23 +7,36 @@ FOLDER_NAME = "wifi_diag_logs"
 TASKS = {
     "ifconfig": {
         "command": "ifconfig en0",
-        "filename": "ifconfig"
+        "filename": "ifconfig",
+        "expressions": [
+            r"ether \S+",
+            r"inet6 .+",
+            r"inet .+"
+        # "expressions": [
+        #     r"ether (?P<ethernet>\S+)",
+        #     r"inet6 (?P<ipv6>.+)",
+        #     r"inet (?P<ipv4>.+)"
+        ]
     },
     "system_profiler": {
         "command": "system_profiler SPAirPortDataType",
-        "filename": "system_profiler"
+        "filename": "system_profiler",
+        "expressions": []
     },
     "log_show": {
         "command": "log show --info --debug --last 1m",
-        "filename": "log_show"
+        "filename": "log_show",
+        "expressions": []
     },
     "airport": {
         "command": "airport -Is",
-        "filename": "airport"
+        "filename": "airport",
+        "expressions": []
     },
     "wdutil": {
         "command": "wdutil info",
-        "filename": "wdutil"
+        "filename": "wdutil",
+        "expressions": []
     },
 }
 
@@ -41,6 +55,10 @@ def get_diagnostics(task, subfolder_name='.'):
     with open(f'{subfolder_name}/{filename}', 'w') as f:
         for line in process.stdout:
             f.write(line)
+
+        for expression in task["expressions"]:
+            search_result = re.findall(expression, process.stdout)
+            print(search_result)
 
     return process.stdout
 
