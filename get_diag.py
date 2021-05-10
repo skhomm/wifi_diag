@@ -16,23 +16,43 @@ TASKS = {
         'expressions': [
             r'ether \S+',
             r'inet6 .+',
-            r'inet .+'
+            r'inet .+',
+        ]
+    },
+    'gateway': {
+        'command': 'route get default',
+        'filename': 'gateway',
+        'expressions': [
+            r'gateway: \S+',
+        ]
+    },
+    'netstat': {
+        'command': 'netstat -rn',
+        'filename': 'netstat',
+        'expressions': [
+            r'default.+en0',
         ]
     },
     'system_profiler': {
-        'command': 'system_profiler SPAirPortDataType',
+        'command': 'system_profiler SPAirPortDataType SPHardwareDataType SPSoftwareDataType',
         'filename': 'system_profiler',
         'expressions': [
+            r'Computer Name: .+',
+            r'User Name: .+',
+            r'System Version: .+',
+            r'Time since boot: .+',
             r'Card Type: .+',
             r'Firmware Version: .+',
             r'Supported Channels: .+',
+            r'Supported PHY Modes: .+',
+            r'Current Network Information:[\s\S]*MCS.+',
         ]
     },
     'airport': {
         'command': 'airport -Is',
         'filename': 'airport',
         'expressions': [
-            r'\S+ \S+ -\d+ .+'
+            r'\S+ \S+ -\d+ .+',
         ]
     },
     'wdutil': {
