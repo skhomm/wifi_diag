@@ -49,7 +49,7 @@ TASKS = {
         ]
     },
     'airport': {
-        'command': 'airport -Is',
+        'command': '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -Is',
         'filename': 'airport',
         'expressions': [
             r'\S+ \S+ -\d+ .+',
